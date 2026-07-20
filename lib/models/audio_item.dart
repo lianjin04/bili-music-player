@@ -23,9 +23,10 @@ class AudioItem {
     return AudioItem(
       bvid: json['bvid'] ?? '',
       title: json['title'] ?? '',
-      author: json['author'] ?? json['owner'] is Map
-          ? (json['owner']['name'] ?? '')
-          : '',
+      author: json['author'] ??
+          (json['upper'] is Map
+              ? (json['upper']['name'] ?? '')
+              : (json['owner'] is Map ? (json['owner']['name'] ?? '') : '')),
       coverUrl: json['pic'] ?? json['cover'] ?? '',
       duration: json['duration'] ?? 0,
       isAvailable: json['state'] != null ? json['state'] == 0 : true,

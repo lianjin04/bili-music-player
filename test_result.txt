@@ -1,0 +1,24 @@
+B站公开 API 连通性测试
+时间: 2026-07-20T03:49:28.654662+00:00
+
+[测试1] 获取用户公开收藏夹列表
+  获取收藏夹数量: 3
+  收藏夹名称: 课, 默认收藏夹, 音乐
+  ✅ 验证通过：包含「默认收藏夹」「课」「音乐」
+
+[测试2] 获取公开收藏夹视频列表
+  获取视频数量: 5
+  首个视频: 在百万豪装录音棚大声听 陶喆《爱我还是他》【Hi-res】 (BV11J4m1473i)
+  UP主字段 upper.name: JLRS-LeoFM
+  ✅ 验证通过：包含 bvid, title, upper.name, duration, cover
+
+[测试3] 获取视频信息并提取 cid
+  bvid=BV11J4m1473i, cid=1431945233
+  ✅ 验证通过：cid 存在
+
+[测试4] 获取音频流地址
+  音频流数量: 3
+  baseUrl 前缀: https://upos-sz-mirrorcosov.bilivideo.com/upgcxcode/33/52/1431945233/1431945233-1-30232.m4s?e=ig8euxZM2rNcNbdlhoNvNC8BqJ...
+  ✅ 验证通过：dash.audio[0].baseUrl 存在
+
+结论: ✅ 全部测试通过

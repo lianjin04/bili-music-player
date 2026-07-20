@@ -21,6 +21,7 @@ class ApiConfig {
   static const String medialistResource = '/x/v1/medialist/resource/list';
   static const String videoInfo = '/x/web-interface/view';
   static const String videoPlayer = '/x/player/wbi/v2';
+  static const String videoPlayUrl = '/x/player/playurl';
   static const String audioStreamUrl = '/audio/music-service-c/url';
 
   // ======== 请求控制 ========

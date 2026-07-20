@@ -155,7 +155,7 @@ class BilibiliApiService {
             .map((e) => AudioItem(
                   bvid: e['bvid'] ?? '',
                   title: e['title'] ?? '',
-                  author: e['owner'] is Map ? (e['owner']['name'] ?? '') : '',
+                  author: e['upper'] is Map ? (e['upper']['name'] ?? '') : '',
                   coverUrl: e['cover'] ?? e['pic'] ?? '',
                   duration: e['duration'] ?? 0,
                   isAvailable: (e['attr'] ?? 0) != 1,
@@ -189,8 +189,16 @@ class BilibiliApiService {
 
       // 第二步：获取播放信息（含音频流地址）
       final playResp = await _dio.get(
-        ApiConfig.videoPlayer,
-        queryParameters: {'bvid': bvid, 'cid': cid},
+        ApiConfig.videoPlayUrl,
+        queryParameters: {
+          'bvid': bvid,
+          'cid': cid,
+          'qn': 128,
+          'fnver': 0,
+          'fnval': 4048,
+          'platform': 'web',
+          'otype': 'json',
+        },
       );
 
       if (playResp.data['code'] == 0) {
@@ -199,7 +207,10 @@ class BilibiliApiService {
           // 获取最高音质的音频流
           final audios = List<Map<String, dynamic>>.from(dash['audio']);
           audios.sort((a, b) => (b['bandwidth'] ?? 0) - (a['bandwidth'] ?? 0));
-          return audios.first['baseUrl'] ?? audios.first['backupUrl']?.first;
+          return audios.first['baseUrl'] ??
+              audios.first['base_url'] ??
+              audios.first['backupUrl']?.first ??
+              audios.first['backup_url']?.first;
         }
       }
       return null;
